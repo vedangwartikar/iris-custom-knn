@@ -1,9 +1,10 @@
 # iris-prediction-knn
-Predicting the species of iris using K-Nearest Neighbor.
+# Predicting the species of iris using K-Nearest Neighbor. #
 
 This machine learning model focuses on classifying an unknown iris into three species(setosa, versicolor and virginica) considering the parameters such as sepal length, sepal width, petal length and petal width. The confidence(score) for the model is 97.36%
 
 Required dependencies:
+* Bullet list
 numpy - http://www.numpy.org/
 pandas - https://pandas.pydata.org/
 sci-kit learn - http://scikit-learn.org/stable/
