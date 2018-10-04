@@ -1,5 +1,6 @@
 import mglearn
 
+#make_forge() dataset
 #Prediction based on the nearest data point
 mglearn.plots.plot_knn_classification(n_neighbors = 1)
 
