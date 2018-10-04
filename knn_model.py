@@ -19,7 +19,7 @@ print("y_test shape: {}".format(y_test.shape))
 iris_dataframe = pd.DataFrame(X_train, columns=iris_dataset.feature_names)
 grr = pd.plotting.scatter_matrix(iris_dataframe, c=y_train, figsize=(15, 15), marker='o', hist_kwds={'bins': 20}, s=60, alpha=.8, cmap=mglearn.cm3)
 
-#Biulding K-nearest neighbor model
+#Building K-nearest neighbor model
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors = 1)
 
