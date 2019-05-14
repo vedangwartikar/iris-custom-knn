@@ -1,63 +1,59 @@
-import numpy as np
 import pandas as pd
+from sklearn import tree
 from scipy.spatial import distance
+from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 
-class CustomKNN:
-	def fit(self, train_data, train_target):
-		self.train_data = train_data
-		self.train_target = train_target
+def euc(a,b):
+	return distance.euclidean(a,b)
 
-	def predict(self, test_data):
-		predictions =[]
-		for row in test_data:
+class CustomKNN():
+	def fit(self, trainingdata, trainingtarget):
+		self.trainingdata = trainingdata
+		self.trainingtarget = trainingtarget
+
+	def predict(self, testdata):
+		predictions = []
+		for row in testdata:
 			label = self.closest(row)
 			predictions.append(label)
-			return predictions
+		return predictions
 
 	def closest(self, row):
-		closest_distance = distance.euclidean(row, self.train_data[0])
-		closest_index = 0
-		for i in range(1, len(self.train_data)):
-			dist = distance.euclid(row, self.train_data[i])
-			if dist < closest_distance:
-				closest_distance = dist
-				closest_index = i
-		return self.train_target[closest_index]
+		best_dist = euc(row, self.trainingdata[0])
+		best_index = 0
+		for i in range(1, len(self.trainingdata)):
+			dist = euc(row, self.trainingdata[i])
+			if dist < best_dist:
+				best_dist = dist
+				best_index = i
+		return self.trainingtarget[best_index]
 
-from sklearn.datasets import load_iris
-iris_dataset = load_iris()
+def KNN():
+	iris = load_iris()
 
-#Splitting dataset into 75% train set and 25% test set
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test =  train_test_split(iris_dataset['data'], iris_dataset['target'], random_state = 0)
+	data = iris.data
+	target = iris.target
 
-#Train, Test set sizes
-print("X_train shape: {}".format(X_train.shape))
-print("y_train shape: {}".format(y_train.shape))
-print("X_test shape: {}".format(X_test.shape))
-print("y_test shape: {}".format(y_test.shape))
+	train_data, test_data, train_target, test_target = train_test_split(data, target, test_size = 0.5)
 
-#Data visualization using pandas scatter_matrix
-iris_dataframe = pd.DataFrame(X_train, columns=iris_dataset.feature_names)
-grr = pd.plotting.scatter_matrix(iris_dataframe, c=y_train, figsize=(15, 15), marker='o', hist_kwds={'bins': 20}, s=60, alpha=.8, cmap=mglearn.cm3)
+	classifier = CustomKNN()
 
-#Building K-nearest neighbor model
-# from sklearn.neighbors import KNeighborsClassifier
-knn = CustomKNN(n_neighbors = 1)
+	classifier.fit(train_data, train_target)
 
-knn.fit(X_train, y_train)
+	predictions = classifier.predict(test_data)
 
-#Custom iris length inputs
-a = input('Enter sepal length(cm): ')
-b = input('Enter sepal width(cm): ')
-c = input('Enter petal length(cm): ')
-d = input('Enter petal width(cm): ')
-X_new = np.array([[a,b,c,d]])
+	accuracy = accuracy_score(test_target, predictions)
 
-#Actual prediction of knn model
-prediction = knn.predict(X_new)
-print("Prediction: {}".format(prediction))
-print("Predicted target name: {}".format(iris_dataset['target_names'][prediction]))
+	return accuracy
 
-#Accuracy of knn model
-print("Test set score: {}".format(knn.score(X_test, y_test)))
+def main():
+	border = "-" * 50
+	print(border)
+	accuracy = KNN()
+	print("Accuracy of custom KNN: ", accuracy*100)
+	print(border)
+
+if __name__ == '__main__':
+	main()
