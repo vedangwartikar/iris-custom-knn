@@ -1,7 +1,7 @@
 # iris-custom-knn
 __Predicting the species of iris using custom built K-Nearest Neighbor.__
 - - - -
-This machine learning model focuses on classifying an unknown iris into three species(setosa, versicolor and virginica) considering the parameters such as sepal length, sepal width, petal length and petal width. The confidence(score) for the model is 97.36%
+This machine learning model focuses on classifying an unknown iris into three species(setosa, versicolor and virginica) considering the parameters such as sepal length, sepal width, petal length and petal width. The confidence(score) for the model is 94 - 97.36%(The score may vary due to the model getting trained differently with each iteration).
 
 Required dependencies:
 * [numpy](http://www.numpy.org/) - Numerical computation
